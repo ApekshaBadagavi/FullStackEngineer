@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Assignment for NM role">
+		<meta name="author" content="Apeksha Badagavi">
+
+		<title>Full Stack Engineer Assignment</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <style>
+            .content-page {
+            overflow: hidden;
+            background-color: #eaeaea;
+            }
+            
+            .container {
+            background-color: #eaeaea;
+            }
+            
+            .card-box {
+              padding: 20px;
+              border: 1px solid rgba(54, 64, 74, 0.05);
+              -webkit-border-radius: 5px;
+              border-radius: 5px;
+              -moz-border-radius: 5px;
+              background-clip: padding-box;
+              margin-bottom: 20px;
+              margin-top: 20px;
+              background-color: #ffffff;
+            }
+            
+            .btn-custom
+            {
+            border-radius: 1px;
+            outline: none !important;
+            padding: 5px;
+            font-size: 0.8em;
+            border-width: 0.5 px !important;
+            transition: all 400ms ease-in-out;
+            margin-bottom: 10px;
+            }
+            
+            .btn-custom.btn-white:hover,
+            .btn-custom.btn-white:focus,
+            .btn-custom.btn-white:active {
+              color: #4c5667 !important;
+              background-color: #f4f8fb !important;
+            }
+            
+            .search {
+                font-size: 0.8em;
+                padding: 5px;
+            }
+            
+            
+            table {
+			font-family: calibri, arial, sans-serif;
+            font-size: 0.9em;
+			border-collapse: collapse;
+			width: 100%;
+            
+            }
+
+            th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+            text-transform: uppercase; 
+            max-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            
+            }
+            
+		    td {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+            max-width: 0;
+            overflow-wrap: break-word;
+            text-overflow: ellipsis;
+            white-space: pre-wrap;
+            table-layout: fixed; /* For IE and Edge */
+            word-break:break-all;  /* For IE */
+            word-wrap:break-word;  /* For IE */
+                
+                
+            }
+            
+            /* [to achieve ellipis]
+            td {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+            max-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            }
+            */
+
+		    tr:nth-child(even) {
+			background-color: #d3d3d3;
+		    }
+            
+            tc:nth-child(even) {
+			background-color: #d3d3d3;
+		    }
+        
+          
+            
+        </style>
+       
+	</head>
+
+    
+	<body>
+		<!-- Begin Content -->
+			<div class="content-page">
+				
+                <!-- Start content -->
+				<div class="content">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="card-box">
+									<h4 class="m-t-0 header-title text-center"><b>Missouri Severe Weather Warning Systems</b></h4>
+									<p class="text-muted m-b-30 text-center" style="font-size: 0.7em">
+										Data from https://data.mo.gov/Public-Safety/Local-Severe-Weather-Warning-Systems-in-Missouri/n59h-ggai
+									</p>
+									
+                                    <button class="btn-custom btn-white" onclick="sortTable()">Sort by County</button>
+									<!--Data from https://data.mo.gov/Public-Safety/Local-Severe-Weather-Warning-Systems-in-Missouri/n59h-ggai  is being used-->
+		                            <input id="myInput" class="pull-right search" type="text" placeholder="Search API content">
+		                            <p class="data-list">  </p>
+                                    
+								</div>
+							</div>
+						</div>
+                    </div> <!-- container -->
+                               
+                </div> <!-- content -->
+
+                <footer class="footer" style="font: calibri; font-size: 0.8em; color: grey; text-align: center; padding-bottom: 20px">
+                   Apeksha Badagavi for North Western Mutual 09/28/2018
+                </footer>
+
+            </div>
+        <!-- End Content -->
+
+       <!-- jQuery Lib -->
+	   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+       <!-- Calling Public API -->
+
+	   <script type="application/javascript">
+
+	
+
+			function sortTable() {
+				var table, rows, switching, i, x, y, shouldSwitch;
+				table = document.getElementById("WebServiceDataTable");
+				switching = true;
+				/* Make a loop that will continue until
+				no switching has been done: */
+				while (switching) {
+					// Start by saying: no switching is done:
+					switching = false;
+					rows = table.rows;
+					/* Loop through all table rows (except the
+					first, which contains table headers): */
+					for (i = 1; i < (rows.length - 1); i++) {
+						// Start by saying there should be no switching:
+						shouldSwitch = false;
+						/* Get the two elements you want to compare,
+						one from current row and one from the next: */
+						x = rows[i].getElementsByTagName("TD")[0];
+						y = rows[i + 1].getElementsByTagName("TD")[0];
+						// Check if the two rows should switch place:
+						if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+							// If so, mark as a switch and break the loop:
+							shouldSwitch = true;
+							break;
+						}
+					}
+					if (shouldSwitch) {
+						/* If a switch has been marked, make the switch
+						and mark that a switch has been done: */
+						rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+						switching = true;
+					}
+				}
+			}
+
+					$(document).ready(function () {
+					debugger;
+						$.ajax({
+							url: "https://data.mo.gov/resource/b69t-kpq2.json"
+							}).then(function (data) {
+							 //data.sort();
+							var output="<table id='WebServiceDataTable'><thead><tr>";
+							for(var key in data[0])
+							{
+							 output+="<th>" + key + "</th>";
+							}
+							output+="</tr></thead><tbody id='myTable'>";
+
+							for (i = 0; i < data.length; i++)
+							{
+							output+="<tr><td>" + data[i].county + "</td><td>" + data[i].notifications + "</td><td>" + data[i].user_fees + "</td><td>" + data[i].web_site +"</td></tr>";
+							}
+							output+="</tbody></table>";
+							$('.data-list').html(output);
+						});
+
+						//Code for Search
+						$("#myInput").on("keyup", function() {
+							var value = $(this).val().toLowerCase();
+							$("#myTable tr").filter(function() {
+							$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+						  });
+						});
+					});
+	   </script>
+    
+        
+        <script>
+function myFunction() {
+    var str1 = "ab";
+    var str2 = "cd";
+    var n = str1.localeCompare(str2);
+    document.getElementById("demo").innerHTML = n;
+}
+</script>
+
+
+	</body>
+    
+</html>
